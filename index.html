@@ -208,16 +208,23 @@
 
   </div>
 
- <script>
+<script>
   async function prueba() {
     const codigo = document.getElementById("codigo").value.trim();
+    const mensaje = document.getElementById("mensaje");
 
     if (!codigo) {
-      alert("Ingresa tu código personal.");
+      mensaje.style.display = "block";
+      mensaje.innerHTML =
+        "<strong>Ingresa tu código personal.</strong><br><br>" +
+        "Verifica el código que recibiste con tu evaluación.";
       return;
     }
 
     const API_URL = "https://script.google.com/macros/s/AKfycbwGmcJUJ1yOcztuIkAC-1XGFiyi2iXr12dkwrYO7mmcL7iE6lgPTRWZEWK7MRZ0tbvBmg/exec";
+
+    mensaje.style.display = "block";
+    mensaje.innerHTML = "Consultando resultado...";
 
     try {
       const respuesta = await fetch(
@@ -226,22 +233,75 @@
 
       const datos = await respuesta.json();
 
-      console.log(datos);
+      if (datos.status === "AVAILABLE") {
+        mensaje.innerHTML = `
+          <div style="font-size:13px; color:#777; margin-bottom:8px;">
+            ENGLISH PROFICIENCY RESULT
+          </div>
 
-      document.getElementById("mensaje").style.display = "block";
-      document.getElementById("mensaje").innerHTML =
-        "<strong>✓ Connection successful</strong><br><br>" +
-        "Respuesta recibida correctamente.";
+          <div style="font-size:22px; font-weight:bold; color:#082f68;">
+            ${datos.name}
+          </div>
+
+          <div style="font-size:14px; color:#666; margin-top:5px;">
+            ${datos.area}
+          </div>
+
+          <div style="margin-top:24px; font-size:13px; color:#777;">
+            OVERALL SCORE
+          </div>
+
+          <div style="font-size:38px; font-weight:bold; color:#082f68;">
+            ${datos.score} / ${datos.maxScore}
+          </div>
+
+          <div style="margin-top:22px; font-size:13px; color:#777;">
+            ESTIMATED CEFR LEVEL
+          </div>
+
+          <div style="
+            display:inline-block;
+            margin-top:8px;
+            padding:8px 24px;
+            background:#c99a35;
+            color:white;
+            border-radius:8px;
+            font-size:28px;
+            font-weight:bold;">
+            ${datos.level}
+          </div>
+        `;
+
+      } else if (datos.status === "PENDING") {
+        mensaje.innerHTML =
+          "<strong>Resultado aún no disponible</strong><br><br>" +
+          "Tu evaluación está siendo procesada. Intenta nuevamente más tarde.";
+
+      } else if (datos.status === "NOT_FOUND") {
+        mensaje.innerHTML =
+          "<strong>Código no encontrado</strong><br><br>" +
+          "Verifica que hayas escrito correctamente tu código personal.";
+
+      } else {
+        mensaje.innerHTML =
+          "<strong>No fue posible mostrar el resultado.</strong><br><br>" +
+          "Intenta nuevamente más tarde.";
+      }
 
     } catch (error) {
       console.error(error);
 
-      document.getElementById("mensaje").style.display = "block";
-      document.getElementById("mensaje").innerHTML =
-        "<strong>Connection error</strong><br><br>" +
-        "No fue posible consultar el resultado.";
+      mensaje.innerHTML =
+        "<strong>Error de conexión</strong><br><br>" +
+        "No fue posible consultar el resultado. Intenta nuevamente.";
     }
   }
+
+  document.getElementById("codigo").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+      prueba();
+    }
+  });
 </script>
 
 </body>
