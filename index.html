@@ -208,11 +208,41 @@
 
   </div>
 
-  <script>
-    function prueba() {
-      document.getElementById("mensaje").style.display = "block";
+ <script>
+  async function prueba() {
+    const codigo = document.getElementById("codigo").value.trim();
+
+    if (!codigo) {
+      alert("Ingresa tu código personal.");
+      return;
     }
-  </script>
+
+    const API_URL = "https://script.google.com/macros/s/AKfycbwGmcJUJ1yOcztuIkAC-1XGFiyi2iXr12dkwrYO7mmcL7iE6lgPTRWZEWK7MRZ0tbvBmg/exec";
+
+    try {
+      const respuesta = await fetch(
+        API_URL + "?code=" + encodeURIComponent(codigo)
+      );
+
+      const datos = await respuesta.json();
+
+      console.log(datos);
+
+      document.getElementById("mensaje").style.display = "block";
+      document.getElementById("mensaje").innerHTML =
+        "<strong>✓ Connection successful</strong><br><br>" +
+        "Respuesta recibida correctamente.";
+
+    } catch (error) {
+      console.error(error);
+
+      document.getElementById("mensaje").style.display = "block";
+      document.getElementById("mensaje").innerHTML =
+        "<strong>Connection error</strong><br><br>" +
+        "No fue posible consultar el resultado.";
+    }
+  }
+</script>
 
 </body>
 </html>
