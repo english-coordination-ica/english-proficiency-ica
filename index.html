@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>English Proficiency Results | ICA</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(145deg, #ffffff 0%, #f6f3eb 55%, #eef2f7 100%);
+      color: #082f68;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 560px;
+      background: white;
+      border-radius: 24px;
+      padding: 42px 38px;
+      box-shadow: 0 18px 50px rgba(0, 35, 85, 0.15);
+      text-align: center;
+      border-top: 8px solid #c99a35;
+    }
+
+    .institution {
+      font-size: 15px;
+      letter-spacing: 2px;
+      font-weight: 700;
+      margin-bottom: 30px;
+    }
+
+    .english {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 46px;
+      margin: 0;
+      line-height: 1;
+    }
+
+    .proficiency {
+      display: inline-block;
+      margin-top: 8px;
+      background: #c99a35;
+      color: white;
+      padding: 7px 22px;
+      border-radius: 7px;
+      font-size: 25px;
+      letter-spacing: 5px;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      margin-top: 15px;
+      font-size: 16px;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+    }
+
+    .line {
+      width: 60px;
+      height: 3px;
+      background: #c99a35;
+      margin: 25px auto;
+    }
+
+    .instruction {
+      color: #555;
+      font-size: 16px;
+      line-height: 1.5;
+      margin-bottom: 22px;
+    }
+
+    input {
+      width: 100%;
+      padding: 17px;
+      border: 2px solid #d6dce5;
+      border-radius: 12px;
+      font-size: 20px;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      outline: none;
+      color: #082f68;
+    }
+
+    input:focus {
+      border-color: #c99a35;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 15px;
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+      background: #082f68;
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+    }
+
+    .test-message {
+      display: none;
+      margin-top: 25px;
+      padding: 20px;
+      border-radius: 14px;
+      background: #f7f9fc;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    .footer {
+      margin-top: 32px;
+      padding-top: 20px;
+      border-top: 1px solid #e5e5e5;
+      font-size: 12px;
+      letter-spacing: 2px;
+      font-weight: bold;
+    }
+
+    .privacy {
+      margin-top: 8px;
+      color: #999;
+      font-size: 11px;
+      letter-spacing: 0;
+      font-weight: normal;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 32px 22px;
+      }
+
+      .english {
+        font-size: 38px;
+      }
+
+      .proficiency {
+        font-size: 20px;
+        letter-spacing: 3px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+
+    <div class="institution">
+      INSTITUTO CULTURAL AZTECA
+    </div>
+
+    <h1 class="english">ENGLISH</h1>
+
+    <div class="proficiency">
+      PROFICIENCY
+    </div>
+
+    <div class="subtitle">
+      DIAGNOSTIC ASSESSMENT RESULTS
+    </div>
+
+    <div class="line"></div>
+
+    <div class="instruction">
+      Ingresa tu código personal para consultar tu resultado.
+    </div>
+
+    <input
+      type="text"
+      id="codigo"
+      placeholder="ICA-XXXX"
+      maxlength="8"
+      autocomplete="off"
+    >
+
+    <button onclick="prueba()">
+      VIEW MY RESULT
+    </button>
+
+    <div class="test-message" id="mensaje">
+      <strong>✓ Connection successful</strong>
+      <br><br>
+      La página de resultados está funcionando correctamente.
+    </div>
+
+    <div class="footer">
+      ENGLISH COORDINATION
+
+      <div class="privacy">
+        Your result is private and can only be accessed with your personal code.
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function prueba() {
+      document.getElementById("mensaje").style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
